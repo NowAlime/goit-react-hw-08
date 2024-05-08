@@ -12,11 +12,11 @@ const numberId = useId();
 const contactsSchema =  Yup.object().shape({
     name: Yup.string()
       .min(2, "Too Short!")
-      .max(30, "Too Long!")
+      .max(20, "Too Long!")
       .required("Required"),
     number: Yup.string()
       .min(9, "Too Short!")
-      .max(12, "Too Long!")
+      .max(16, "Too Long!")
       .required("Required"),
   });
 
