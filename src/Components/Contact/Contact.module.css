@@ -1,0 +1,16 @@
+
+.listInform
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.deleteButton {
+    background-color: rgb(79, 44, 137);
+    color: aliceblue;
+  }
+  .deleteButton:hover {
+    background-color: rgb(20, 223, 64);
+  }
