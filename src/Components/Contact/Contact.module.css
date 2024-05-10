@@ -1,16 +1,28 @@
-
-.listInform
-{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
+.container {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  flex-wrap: wrap;
+  border: solid 1px black;
+  border-radius: 6px;
+  padding: 12px;
 }
 
-.deleteButton {
-    background-color: rgb(79, 44, 137);
-    color: aliceblue;
-  }
-  .deleteButton:hover {
-    background-color: rgb(20, 223, 64);
-  }
+.info {
+  display: flex;
+  gap: 10px;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  color: rgb(78, 78, 242);
+}
+.button {
+  padding: 10px;
+  background-color: rgb(26, 56, 223);
+}
+.button:hover,
+.button:focus {
+  background-color: rgb(129, 227, 17);
+}

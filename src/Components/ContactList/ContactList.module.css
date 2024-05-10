@@ -1,4 +1,5 @@
 .list {
+   display: flex;
     list-style: none;
     display: flex;
     gap: 24px;
@@ -14,6 +15,6 @@
     gap: 24px;
     border: 1px solid #6a6666;
     border-radius: 8px;
-    padding: 16px;
+    padding: 8px;
     width: 260px;
   }

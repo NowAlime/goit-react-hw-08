@@ -1,26 +1,23 @@
-
+import { HiUser } from "react-icons/hi";
+import { HiPhone } from "react-icons/hi";
 import style from "../Contact/Contact.module.css";
 
+const Contact = ({ contact, onDelete }) => {
+  const { name, number } = contact;
 
-function Contact({ contact: { id, name, number }, onDelete }) {
-    return (
-      <>
-        <div className={style.listContainer}>
-          <span className={style.listInform}>
-            <p className={style.contactName}>{name}</p>
-          </span>
-          <span className={style.listItem}>
-          <p>{number}</p>
-          </span>
-        </div>
-        <button   className={style.deleteButton}
-          type="button"
-          onClick={() => onDelete(id)}
-        >
-          Delete
-        </button>
-      </>
-    );
-  }
+  const handleDelete = () => {
+      onDelete(contact.id);
+  };
+
+  return (
+      <div className={style.container}>
+          <div>
+              <div className={style.info}><HiUser className={style.icon} />{name}</div>
+              <div className={style.info}><HiPhone className={style.icon} />{number}</div> 
+          </div>
+          <button className={style.button} onClick={handleDelete}>Delete</button>
+      </div>
+  );
+}
 
 export default Contact;
