@@ -5,11 +5,11 @@ import style from "../ContactForm/ContactForm.module.css";
 import { addContact } from "../../redux/ContactsApi";
 import { useDispatch } from "react-redux";
 
+
 function ContactForm() {
   const dispatch = useDispatch();
   const formNameId = useId();
   const formNumberId = useId();
-
   const contactsSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Too Short!")
@@ -20,21 +20,20 @@ function ContactForm() {
       .max(12, "Too Long!")
       .required("Required"),
   });
-
   const handleSubmit = (values, actions) => {
-    dispatch(addContact(values));
+    const { name } = values;
+    const { number } = values;
+    dispatch(addContact(name, number));
     actions.resetForm();
   };
-
   return (
     <Formik
-      className={style.contactForm}
       validationSchema={contactsSchema}
       onSubmit={handleSubmit}
       initialValues={{ name: "", number: "" }}
     >
-      <Form className={style.contactForm}>
-        <div className={style.inputContainer}>
+      <Form className={style.form}>
+        <div className={style.field}>
           <label htmlFor={formNameId}>Name</label>
           <Field
             className={style.nameInput}
@@ -42,23 +41,18 @@ function ContactForm() {
             type="text"
             name="name"
           />
-          <ErrorMessage className={style.error} name="name" component="span" />
+          <ErrorMessage className={style.error}  name="name" component="span" />
         </div>
-        <div className={style.inputContainer}>
+        <div className={style.field}>
           <label htmlFor={formNumberId}>Number</label>
           <Field
-            className={style.nameInput}
             id={formNumberId}
             type="tel"
             name="number"
           />
-          <ErrorMessage
-            className={style.error}
-            name="number"
-            component="span"
-          />
+          <ErrorMessage className={style.error} name="number" component="span" />
         </div>
-        <button className={style.buttonSubmit} type="submit">
+        <button  className={style.buttonSubmit} type="submit">
           Add contact
         </button>
       </Form>

@@ -24,6 +24,7 @@ function SearchBox() {
         value={filter}
         onChange={handleFilter}
         name="name"
+        placeholder="Search..."
       />
     </div>
   );

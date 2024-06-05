@@ -11,18 +11,12 @@ function Contact({ contact: { id, name, number } }) {
 
   return (
     <>
-      <div className={style.listItemContainer}>
-        <span className={style.listItemPice}>
-          <HiUser /> <p className={style.contactName}>{name}</p>
-        </span>
-        <span className={style.listItemPice}>
-          <HiPhone />
-          <p>{number}</p>
-        </span>
-      </div>
-      <button className={style.deleteButton} type="button" onClick={handleDelete}>
-        Delete
-      </button>
+      <div className={style.container}> 
+              <div className={style.info}><HiUser className={style.icon} />{name}</div>
+              <div className={style.info}><HiPhone className={style.icon} />{number}</div> 
+          </div>
+          <button className={style.button} onClick={handleDelete}>Delete</button>
+     
     </>
   );
 }
