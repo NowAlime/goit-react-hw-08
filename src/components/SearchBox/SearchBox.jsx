@@ -5,7 +5,7 @@ import { selectNameFilter } from "../../redux/selectors";
 import { changeFilter } from "../../redux/filtersSlice";
 
 function SearchBox() {
-  const finedId = useId();
+  const filterId = useId();
   const dispatch = useDispatch();
   const filter = useSelector(selectNameFilter);
 
@@ -16,10 +16,10 @@ function SearchBox() {
 
   return (
     <div className={style.filter}>
-      <label htmlFor={finedId}>Find contacts by name</label>
+      <label htmlFor={filterId}>Find contacts by name</label>
       <input
         className={style.filterInput}
-        id={finedId}
+        id={filterId}
         type="text"
         value={filter}
         onChange={handleFilter}

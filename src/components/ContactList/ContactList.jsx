@@ -1,34 +1,30 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchContacts } from "../../redux/ContactsApi";
+import { selectContacts, selectNameFilter } from "../../redux/selectors";
 import Contact from "../Contact/Contact";
 import style from "./ContactList.module.css";
-import { useSelector } from "react-redux";
-import { selectContacts, selectNameFilter } from "../../redux/selectors";
 
 const ContactList = () => {
+  const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const filters = useSelector(selectNameFilter);
-  
-  const visibleContacts = contacts && contacts.filter((contact) => {
-    if ("id" in contact && "name" in contact && "number" in contact) {
-      if (
-        typeof contact.id === "string" &&
-        typeof contact.name === "string" &&
-        typeof contact.number === "string"
-      ) {
-        return contact.name.toLowerCase().includes(filters.toLowerCase());
-      }
-    }
-    return false;
-  });
+  const filter = useSelector(selectNameFilter);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const visibleContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <ul className={style.list}>
-      {visibleContacts && visibleContacts.map((contact) => {
-        return (
-          <li className={style.listItem} key={contact.id}>
-            <Contact contact={contact} />
-          </li>
-        );
-      })}
+      {visibleContacts.map((contact) => (
+        <li className={style.listItem} key={contact.id}>
+          <Contact contact={contact} />
+        </li>
+      ))}
     </ul>
   );
 };
