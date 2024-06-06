@@ -21,9 +21,7 @@ function ContactForm() {
       .required("Required"),
   });
   const handleSubmit = (values, actions) => {
-    const { name } = values;
-    const { number } = values;
-    dispatch(addContact(name, number));
+    dispatch(addContact(values));
     actions.resetForm();
   };
   return (
