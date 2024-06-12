@@ -1,5 +1,6 @@
 import TitleBar from '..//..//components/TitleBar/TitleBar';
 import { FaPhoneSquareAlt } from "react-icons/fa";
+
 const HomePage = () => {
   return (
     <>
@@ -13,4 +14,5 @@ const HomePage = () => {
     </>
   );
 };
+
 export default HomePage;

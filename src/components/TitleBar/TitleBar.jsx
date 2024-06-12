@@ -1,10 +1,11 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet';
 
-const DocumentTitle = ({ children }) => {
+const TitleBar = ({ children }) => {
   return (
     <Helmet>
       <title>{children}</title>
     </Helmet>
   );
 };
+
 export default TitleBar;
