@@ -1,4 +1,4 @@
-import '../App/App.module.css';
+import './App.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { lazy, useEffect } from "react";
 import Layout from "../Layout/Layout";
