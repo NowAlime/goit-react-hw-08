@@ -1,51 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from './operations'; 
-import { createSelector } from 'reselect';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const contactsSlice = createSlice({
-  name: "contacts",
-  initialState: {
-    items: [],
-    loading: false,
-    error: null,
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchContacts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.items = action.payload;
-      })
-      .addCase(fetchContacts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
-      .addCase(addContact.fulfilled, (state, action) => {
-        state.items.push(action.payload);
-      })
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        state.items = state.items.filter(
-          (contact) => contact.id !== action.payload.id
-        );
-      });
-  },
-});
-
-const selectContacts = (state) => state.contacts.items;
-const selectNameFilter = (state) => state.filters.nameFilter;
-
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectNameFilter],
-  (contacts, selectNameFilter) => {
-    return contacts.filter((contact) => {
-      const matchesName = contact.name.toLowerCase().includes(selectNameFilter);
-      const matchesNumber = contact.number.includes(selectNameFilter);
-      return matchesName || matchesNumber;
-    });
+export const fetchContacts = createAsyncThunk(
+  "contact/fetchAll",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get("/contacts");
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
-
-export const contactReducer = contactsSlice.reducer;
-export default contactsSlice.reducer; 
+export const addContact = createAsyncThunk(
+  "contact/addContact",
+  async ({ name, number }, thunkAPI) => {
+    try {
+      const response = await axios.post("/contacts", { name, number });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const deleteContact = createAsyncThunk(
+  "contact/deleteContact",
+  async (contactId, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/contacts/${contactId}`);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const changeContact = createAsyncThunk(
+  " contacts/changeContact",
+  async ({ id, name, number }, thunkAPI) => {
+    try {
+      const response = await axios.patch(`/contacts/${id}`, { name, number });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
