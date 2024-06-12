@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { logIn } from '../../redux/auth/operations';
+import { login } from '../../redux/auth/operations';
 import style from './LoginForm.module.css';
 import { useId } from "react";
 import { useDispatch } from "react-redux";
@@ -35,7 +35,7 @@ const showToast = (message, type) => {
     });
     const handleSubmit = (values, action) => {
       const { email, password } = values;
-      dispatch(logIn({ email, password }))
+      dispatch(login({ email, password }))
         .unwrap()
         .then(() => {
           showToast("Login successful!", "success");
