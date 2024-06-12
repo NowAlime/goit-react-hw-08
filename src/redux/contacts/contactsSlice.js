@@ -1,50 +1,85 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  addContact,
+  changeContact,
+  deleteContact,
+  fetchContacts,
+} from "./operations";
+import { createSelector } from "@reduxjs/toolkit";
+import { selectContacts } from "./selectors";
+import { selectNameFilter } from "../filters/selectors";
+import { logOut } from "../auth/operations";
 
-export const fetchContacts = createAsyncThunk(
-  "contact/fetchAll",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get("/contacts");
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-export const addContact = createAsyncThunk(
-  "contact/addContact",
-  async ({ name, number }, thunkAPI) => {
-    try {
-      const response = await axios.post("/contacts", { name, number });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-export const deleteContact = createAsyncThunk(
-  "contact/deleteContact",
-  async (contactId, thunkAPI) => {
-    try {
-      const response = await axios.delete(`/contacts/${contactId}`);
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-export const changeContact = createAsyncThunk(
-  " contacts/changeContact",
-  async ({ id, name, number }, thunkAPI) => {
-    try {
-      const response = await axios.patch(`/contacts/${id}`, { name, number });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+const handlePending = (state) => {
+  state.loading = true;
+};
+
+const handleError = (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+};
+const contactsSlice = createSlice({
+  name: "contacts",
+  initialState: {
+    items: [],
+    loading: false,
+    error: null,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchContacts.pending, handlePending)
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.items = action.payload;
+      })
+      .addCase(fetchContacts.rejected, handleError)
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.items.push(action.payload);
+      })
+      .addCase(addContact.rejected, handleError)
+      .addCase(deleteContact.pending, handlePending)
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        const index = state.items.findIndex(
+          (contact) => contact.id === action.payload.id
+        );
+        state.items.splice(index, 1);
+      })
+      .addCase(deleteContact.rejected, handleError)
+      .addCase(changeContact.pending, handlePending)
+      .addCase(changeContact.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = false;
+        const index = state.items.findIndex(
+          (contact) => contact.id === action.payload.id
+        );
+        if (index !== -1) {
+          state[index] = action.payload;
+        }
+      })
+      .addCase(changeContact.rejected, handleError)
+      .addCase(logOut.fulfilled, (state) => {
+        state.items = [];
+        state.error = null;
+        state.loading = false;
+      });
+  },
+});
+
+export const selectFilteredContacts = createSelector(
+  [selectContacts, selectNameFilter],
+  (contacts, selectNameFilter) => {
+    return contacts.filter((contact) => {
+      const matchesName = contact.name.toLowerCase().includes(selectNameFilter);
+      const matchesNumber = contact.number.includes(selectNameFilter);
+      return matchesName || matchesNumber;
+    });
   }
 );
 
-
-export default contactsSlice.reducer;
+export const contactReducer = contactsSlice.reducer;

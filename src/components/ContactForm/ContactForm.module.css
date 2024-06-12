@@ -1,23 +1,39 @@
-.form {
+.contactForm {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  margin-bottom: 40px;
+  width: 300px;
 }
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
- 
+
+.inputContainer {
+  margin-bottom: 10px;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.nameInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .error {
-  color: rgb(8, 231, 49);
+  color: #dc3545;
+  font-size: 14px;
 }
+
 .buttonSubmit {
-  color: aliceblue;
-  background-color: rgb(54, 27, 255);
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttonSubmit:hover {
+  background-color: #0056b3;
 }

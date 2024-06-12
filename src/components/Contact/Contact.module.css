@@ -1,28 +1,54 @@
-.container {
-  width: 250px;
+.listItemContainer {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 5px;
-  flex-wrap: wrap;
-  border: solid 1px black;
-  border-radius: 6px;
-  padding: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
-.info {
+.listItemPice {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  margin-right: 10px;
 }
-.icon {
-  width: 24px;
-  height: 24px;
-  color: rgb(78, 78, 242);
+
+.contactName {
+  margin-left: 5px;
+  font-size: 16px;
 }
-.button {
-  padding: 10px;
-  background-color: rgb(26, 56, 223);
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
 }
-.button:hover,
-.button:focus {
-  background-color: rgb(129, 227, 17);
+
+.buttonChange,
+.deleteButton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+.buttonChange {
+  background-color: #007bff;
+  color: white;
+}
+
+.buttonChange:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
 }

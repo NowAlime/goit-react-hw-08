@@ -1,10 +1,10 @@
-import TitleBar from '..//..//components/TitleBar/TitleBar';
-import RegistrationForm from '..//..//components/RegistrationForm/RegistrationForm';
+import DocumentTitle from "../../components/DocumentTitle/DocumentTitle";
+import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
 
 const RegistrationPage = () => {
   return (
     <>
-      <TitleBar>Registration</TitleBar>
+      <DocumentTitle>Registration</DocumentTitle>
       <RegistrationForm />
     </>
   );

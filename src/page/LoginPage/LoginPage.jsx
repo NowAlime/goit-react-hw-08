@@ -1,9 +1,9 @@
-import TitleBar from '..//..//components/TitleBar/TitleBar';
+import DocumentTitle from "../../components/DocumentTitle/DocumentTitle";
 import LoginForm from "../../components/LoginForm/LoginForm";
 const LoginPage = () => {
   return (
     <>
-      <TitleBar>Log In</TitleBar>
+      <DocumentTitle>Log In</DocumentTitle>
       <LoginForm />
     </>
   );
