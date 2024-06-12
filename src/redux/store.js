@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 import authReducer from './auth/authSlice';
-import contactReducer from './contacts/contactsSlice';
+import contactReducer from './contacts/contactsSlice'; 
 import filterReducer from './filters/filtersSlice';
 
 const rootReducer = combineReducers({

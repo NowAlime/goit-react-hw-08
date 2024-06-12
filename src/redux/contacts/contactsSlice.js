@@ -45,3 +45,6 @@ export const changeContact = createAsyncThunk(
     }
   }
 );
+
+
+export default contactsSlice.reducer;
