@@ -1,9 +1,9 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useId } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
-import * as Yup from "yup";
-import css from "./RegistrationForm.module.css";
+import style from "./RegistrationForm.module.css";
 import { toast } from "react-toastify";
 
 const showToast = (message, type) => {
@@ -41,83 +41,62 @@ const RegistrationForm = () => {
       .required("Required"),
   });
 
-  const handleSubmit = (values, action) => {
-    const { name, email, password } = values;
-    dispatch(
-      register({
-        name,
-        email,
-        password,
-      })
-    )
-      .unwrap()
-      .then(() => {
-        showToast("Registration successful!", "success");
-      })
-      .catch(() => {
-        showToast("Registration failed!", "error");
-      });
-
-    action.resetForm();
+  const handleSubmit = async (values, actions) => {
+    try {
+      await dispatch(register(values)).unwrap();
+      showToast("Registration successful!", "success");
+      actions.resetForm();
+    } catch (error) {
+      showToast("Registration failed!", "error");
+    }
   };
 
   return (
     <Formik
-      onSubmit={handleSubmit}
       initialValues={{ name: "", email: "", password: "" }}
       validationSchema={registerSchema}
+      onSubmit={handleSubmit}
     >
-      <Form className={css.form}>
-        <div className={css.container}>
-          <label htmlFor={nameId}> Username</label>
+      <Form className={style.form}>
+        <div className={style.container}>
+          <label htmlFor={nameId}>Name</label>
           <Field
-            className={css.input}
+            className={style.input}
             type="text"
             name="name"
             id={nameId}
             placeholder="Enter your name..."
           />
-          <ErrorMessage
-            className={css.errorMessage}
-            name="name"
-            component="p"
-          />
+          <ErrorMessage className={style.errorMessage} name="name" component="p" />
         </div>
-        <div className={css.container}>
+        <div className={style.container}>
           <label htmlFor={emailId}>Email</label>
           <Field
-            className={css.input}
+            className={style.input}
             type="email"
             name="email"
             id={emailId}
             placeholder="Enter your email..."
           />
-          <ErrorMessage
-            className={css.errorMessage}
-            name="email"
-            component="p"
-          />
+          <ErrorMessage className={style.errorMessage} name="email" component="p" />
         </div>
-        <div className={css.container}>
+        <div className={style.container}>
           <label htmlFor={passwordId}>Password</label>
           <Field
-            className={css.input}
+            className={style.input}
             type="password"
             name="password"
             id={passwordId}
             placeholder="Enter your password..."
           />
-          <ErrorMessage
-            className={css.errorMessage}
-            name="password"
-            component="p"
-          />
+          <ErrorMessage className={style.errorMessage} name="password" component="p" />
         </div>
-        <button className={css.buttonSub} type="submit">
+        <button className={style.buttonSub} type="submit">
           Register
         </button>
       </Form>
     </Formik>
   );
 };
+
 export default RegistrationForm;
