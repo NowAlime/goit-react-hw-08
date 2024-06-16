@@ -71,15 +71,6 @@ const contactsSlice = createSlice({
   },
 });
 
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectNameFilter],
-  (contacts, selectNameFilter) => {
-    return contacts.filter((contact) => {
-      const matchesName = contact.name.toLowerCase().includes(selectNameFilter);
-      const matchesNumber = contact.number.includes(selectNameFilter);
-      return matchesName || matchesNumber;
-    });
-  }
-);
+
 
 export const contactReducer = contactsSlice.reducer;
