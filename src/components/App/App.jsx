@@ -9,10 +9,10 @@ import RestrictedRoute from "../RestrictedRoute/RestrictedRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import { ToastContainer } from "react-toastify";
 
-const HomePage = lazy(() => import("../../page/HomePage/HomePage"));
-const RegistrationPage = lazy(() => import("../../page/RegistrationPage/RegistrationPage"));
-const LoginPage = lazy(() => import("../../page/LoginPage/LoginPage"));
-const ContactsPage = lazy(() => import("../../page/ContactsPage/ContactsPage"));
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
+const RegistrationPage = lazy(() => import("../../pages/RegistrationPage/RegistrationPage"));
+const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage"));
+const ContactsPage = lazy(() => import("../../pages/ContactsPage/ContactsPage"));
 
 function App() {
   const dispatch = useDispatch();
