@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { contactReducer } from "./contacts/contactsSlice";
-import { filterReducer } from "./filters/filtersSlice";
+import { filterReducer } from "../redux/filters/filtersSlice"; 
 import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import { authReducer } from "./auth/authSlice";
@@ -13,18 +13,21 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
-
+import { modalReducer } from "./modalWindow/slice";
 
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["token"],
-};
+  whitelist: ["token"], };
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authReducer),
+    auth: persistedAuthReducer,
     contacts: contactReducer,
     filters: filterReducer,
+    modal: modalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

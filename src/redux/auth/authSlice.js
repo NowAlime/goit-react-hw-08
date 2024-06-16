@@ -4,6 +4,7 @@ import { logIn, logOut, refreshUser, register } from "./operations";
 const handlePending = (state) => {
   state.isLoading = true;
 };
+
 const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
@@ -20,8 +21,9 @@ const authSlice = createSlice({
     isLoggedIn: false,
     isRefreshing: false,
     isLoading: false,
-    error: false,
+    error: null,
   },
+  reducers: {}, 
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, handlePending)
@@ -29,6 +31,8 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(register.rejected, handleRejected)
       .addCase(logIn.pending, handlePending)
@@ -36,6 +40,8 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(logIn.rejected, handleRejected)
       .addCase(logOut.pending, handlePending)
@@ -43,9 +49,10 @@ const authSlice = createSlice({
         state.user = { name: "", email: "" };
         state.token = null;
         state.isLoggedIn = false;
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(logOut.rejected, handleRejected)
-
       .addCase(refreshUser.pending, (state) => {
         state.isRefreshing = true;
       })
@@ -53,6 +60,7 @@ const authSlice = createSlice({
         state.user = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
+        state.error = null;
       })
       .addCase(refreshUser.rejected, (state, action) => {
         state.isRefreshing = false;
@@ -61,4 +69,5 @@ const authSlice = createSlice({
       });
   },
 });
+
 export const authReducer = authSlice.reducer;

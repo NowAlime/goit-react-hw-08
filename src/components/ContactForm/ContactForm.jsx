@@ -1,10 +1,12 @@
-import { Formik, ErrorMessage, Field, Form } from "formik";
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useId } from "react";
-import style from "./ContactForm.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { selectUser } from "../../redux/auth/selectors";
+import style from "./ContactForm.module.css";
 
 const showToast = (message, type) => {
   toast(message, {
@@ -20,10 +22,12 @@ const showToast = (message, type) => {
   });
 };
 
-export default function ContactForm() {
+const ContactForm = () => {
   const dispatch = useDispatch();
   const formNameId = useId();
   const formNumberId = useId();
+  const { name } = useSelector(selectUser);
+
   const contactsSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Too Short!")
@@ -49,39 +53,45 @@ export default function ContactForm() {
   };
 
   return (
-    <Formik
-      className={style.contactForm}
-      validationSchema={contactsSchema}
-      onSubmit={handleSubmit}
-      initialValues={{ name: "", number: "" }}
-    >
-      <Form className={style.contactForm}>
-        <div className={style.inputContainer}>
-          <label htmlFor={formNameId}>Name</label>
-          <Field
-            className={style.nameInput}
-            id={formNameId}
-            type="text"
-            name="name"
-            placeholder="Enter your name"
-          />
-          <ErrorMessage className={css.error} name="name" component="span" />
-        </div>
-        <div className={style.inputContainer}>
-          <label htmlFor={formNumberId}>Number</label>
-          <Field
-            className={style.nameInput}
-            id={formNumberId}
-            type="tel"
-            name="number"
-            placeholder="Enter your phone number"
-          />
-          <ErrorMessage className={style.error} name="number" component="span" />
-        </div>
-        <button className={style.buttonSubmit} type="submit">
-          Add contact
-        </button>
-      </Form>
-    </Formik>
+    <div className={style.container}>
+      <p className={style.welcome}>Welcome, {name}</p>
+
+      <Formik
+        className={style.contactForm}
+        validationSchema={contactsSchema}
+        onSubmit={handleSubmit}
+        initialValues={{ name: "", number: "" }}
+      >
+        <Form className={style.contactForm}>
+          <div className={style.inputContainer}>
+            <label htmlFor={formNameId}>Name</label>
+            <Field
+              className={style.nameInput}
+              id={formNameId}
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+            />
+            <ErrorMessage className={style.error} name="name" component="span" />
+          </div>
+          <div className={style.inputContainer}>
+            <label htmlFor={formNumberId}>Number</label>
+            <Field
+              className={style.nameInput}
+              id={formNumberId}
+              type="tel"
+              name="number"
+              placeholder="Enter your phone number"
+            />
+            <ErrorMessage className={style.error} name="number" component="span" />
+          </div>
+          <button className={style.buttonSubmit} type="submit">
+            Add contact
+          </button>
+        </Form>
+      </Formik>
+    </div>
   );
-}
+};
+
+export default ContactForm;

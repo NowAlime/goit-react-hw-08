@@ -1,20 +1,24 @@
+
 .listItemContainer {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  background-color: #fff;
 }
 
 .listItemPice {
   display: flex;
   align-items: center;
-  margin-right: 10px;
 }
 
 .contactName {
-  margin-left: 5px;
-  font-size: 16px;
+  margin-left: 10px;
+  padding: 5px;
+  font-size: 1em;
+  border: 1px solid #ccc;
 }
 
 .buttonContainer {
@@ -24,31 +28,23 @@
 
 .buttonChange,
 .deleteButton {
-  cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
   margin-left: 10px;
-  transition: background-color 0.3s;
-}
-
-.buttonChange {
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
   background-color: #007bff;
-  color: white;
+  color: #fff;
 }
 
-.buttonChange:hover {
+.buttonChange:hover,
+.deleteButton:hover {
   background-color: #0056b3;
 }
 
-.deleteButton {
-  background-color: #dc3545;
-  color: white;
-}
-
-.deleteButton:hover {
-  background-color: #c82333;
+.buttonChange svg,
+.deleteButton svg {
+  margin-right: 5px;
 }

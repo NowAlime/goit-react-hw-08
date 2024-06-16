@@ -1,20 +1,16 @@
 .list {
-   display: flex;
-    list-style: none;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
-  }
-  .listItem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    border: 1px solid #6a6666;
-    border-radius: 8px;
-    padding: 8px;
-    width: 260px;
-  }
+  list-style-type: none;
+  padding: 0;
+}
+
+.listItem {
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.listItem:hover {
+  background-color: #e0e0e0;
+}

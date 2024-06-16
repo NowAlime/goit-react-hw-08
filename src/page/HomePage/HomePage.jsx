@@ -6,13 +6,14 @@ const HomePage = () => {
   return (
     <>
       <DocumentTitle>Home</DocumentTitle>
-      <div className={style.welcomeText}>
+      <div className={style.container}>
         <h1 className={style.title}>
-          <FaPhoneSquareAlt />
+          <FaPhoneSquareAlt className={style.icon} />
           Welcome to your phone book!
         </h1>
       </div>
     </>
   );
 };
+
 export default HomePage;
